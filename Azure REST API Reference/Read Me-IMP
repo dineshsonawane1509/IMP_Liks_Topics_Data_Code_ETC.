@@ -1,0 +1,13 @@
+Azure REST API Reference (Authorization code grant (interactive clients) and Client credentials grant (non-interactive clients)).
+https://docs.microsoft.com/en-us/rest/api/azure/
+
+ - name: TEMP - Request Azure SPN Access Token
+      uri:
+        url: "https://login.windows.net/{{ AZURE_RM_TENANTID | mandatory }}/oauth2/token"
+        method: "POST"
+        return_content: yes
+        body: "grant_type=client_credentials&client_id={{ AZURE_RM_CLIENTID |urlencode}}&client_secret={{ AZURE_RM_SECRET |urlencode}}&resource=https%3A%2F%2Fmanagement.azure.com%2F"
+        status_code: 200,201
+        headers:
+        Content-Type: "application/x-www-form-urlencoded"
+      register: var_access
